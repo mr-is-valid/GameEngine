@@ -37,9 +37,9 @@ public class MainGameLoop {
 		
 		//*********************************TERRAIN TEXTURE PACK ************************
 		
-		TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture(tp.getGrassy()));
+		TerrainTexture backgroundTexture = new TerrainTexture(loader.loadTexture(tp.getGrassy2()));
 		TerrainTexture rTexture = new TerrainTexture(loader.loadTexture(tp.getDirt()));
-		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture(tp.getGrassy2()));
+		TerrainTexture gTexture = new TerrainTexture(loader.loadTexture(tp.getMud()));
 		TerrainTexture bTexture = new TerrainTexture(loader.loadTexture(tp.getFloor1()));
 		
 		TerrainTexturePack texturePack = new TerrainTexturePack(backgroundTexture, rTexture, gTexture, bTexture);
@@ -72,6 +72,9 @@ public class MainGameLoop {
 					  
 		TexturedModel fern = new TexturedModel(OBJLoader.loadObjModel("fern",loader),
 				  			 new ModelTexture(loader.loadTexture(tp.getFern())));
+		
+		TexturedModel playerTexture = new TexturedModel(OBJLoader.loadObjModel("person", loader),
+									  new ModelTexture(loader.loadTexture("playerTexture")));
 		  
 		  
 	  pinkFlower.getTexture().setHasTransparency(true);
@@ -116,13 +119,14 @@ public class MainGameLoop {
 		Terrain terrain  = new Terrain(0,-1,loader, texturePack , blenMap);
 		Terrain terrain2 = new Terrain(-1,-1,loader,texturePack , blenMap);
 		
-		Camera camera = new Camera();	
+		
 		MasterRenderer renderer = new MasterRenderer();
 		
-		RawModel bunnyModel = OBJLoader.loadObjModel("stanfordBunny", loader);
-		TexturedModel stanfordBunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("white")));
+//		RawModel bunnyModel = OBJLoader.loadObjModel("stanfordBunny", loader);
+//		TexturedModel stanfordBunny = new TexturedModel(bunnyModel, new ModelTexture(loader.loadTexture("white")));	
 		
-		Player player = new Player(stanfordBunny , new Vector3f(1,0,-50) , 0,0,0,1);
+		Player player = new Player(playerTexture , new Vector3f(1,0,-50) , 0,0,0,1);
+		Camera camera = new Camera(player);	
 		
 		while(!Display.isCloseRequested()){
 			camera.move();
